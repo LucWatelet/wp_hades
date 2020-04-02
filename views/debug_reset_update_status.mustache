@@ -1,0 +1,57 @@
+<input id="current-flux-from-datetime" type="text" disabled value="{{flux_from_datetime}}" /><input name="update-flux-from-datetime" type="text" value="" />&nbsp;<a id="set-default-flux-from-datetime" href="" />Default value</a>&nbsp;<a id="update-flux-from-datetime" href="" />Update flux_from_datetime</a>&nbsp;<img id="update-flux-from-datetime-status-icon" /><span id="update-flux-from-datetime-status-text"></span><br />
+<input id="current-maj-en-cours" type="text" disabled value="{{maj_en_cours}}" /><input name="update-maj-en-cours" type="text" value="" placeholder="" />&nbsp;<a id="update-maj-en-cours" href="" />Update maj_en_cours</a>&nbsp;<img id="update-maj-en-cours-status-icon" /><span id="update-maj-en-cours-status-text"></span>
+
+<script>
+jQuery('#set-default-flux-from-datetime').on('click', function(e) {
+  e.preventDefault();
+  jQuery('input[name=update-flux-from-datetime]').val('2000-01-01 00:00:00');
+});
+</script>
+<script>
+jQuery('#update-flux-from-datetime').on('click', function(e) {
+  e.preventDefault();
+  jQuery('#update-flux-from-datetime-status-icon').prop('src', './images/loading.gif');
+  jQuery('#update-flux-from-datetime-status-text').html('&nbspEffacement en cours...');
+  jQuery.ajax({
+	  data: {'action': 'update_flux_from_datetime_ajax', 'new_date': jQuery("input[name=update-flux-from-datetime]").val()},
+    success: function() {
+      jQuery('#update-flux-from-datetime-status-icon').prop('src', './images/yes.png');
+      jQuery('#update-flux-from-datetime-status-text').html('&nbspProcédure terminée !');
+      jQuery.ajax({
+        data: {'action': 'get_jobs_status_ajax'},
+        type: 'GET',
+        url: ajaxurl,
+        }).done(function(data) {
+          console.log(data);
+          jQuery('#current-flux-from-datetime').val(data.update.last_finished);
+        });
+      },
+	  type: 'GET',
+  	url: ajaxurl
+  });
+});
+</script>
+<script>
+jQuery('#update-maj-en-cours').on('click', function(e) {
+  e.preventDefault();
+  jQuery('#update-maj-en-cours-status-icon').prop('src', './images/loading.gif');
+  jQuery('#update-maj-en-cours-status-text').html('&nbspEffacement en cours...');
+  jQuery.ajax({
+	  data: {'action': 'update_maj_en_cours_ajax', 'new_date': jQuery("input[name=update-maj-en-cours]").val()},
+    success: function() {
+      jQuery('#update-maj-en-cours-status-icon').prop('src', './images/yes.png');
+      jQuery('#update-maj-en-cours-status-text').html('&nbspProcédure terminée !');
+      jQuery.ajax({
+        data: {'action': 'get_jobs_status_ajax'},
+        type: 'GET',
+        url: ajaxurl,
+        }).done(function(data) {
+          console.log(data);
+          jQuery('#current-maj-en-cours').val(data.update.last_started);
+        });
+      },
+	  type: 'GET',
+  	url: ajaxurl
+  });
+});
+</script>

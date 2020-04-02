@@ -1,0 +1,48 @@
+<ul>
+  <li><a href="" id="reset-xml-transform-status">Reset xml transform status</a>&nbsp;<img id="reset_xml_transform_status_icon" src="" /><span id="reset_xml_transform_status_text"></span></li>
+  <li><a href="" id="reset-feed-loading-status">Reset feed load status</a>&nbsp;<img id="reset_feed_loading_status_icon" src="" /><span id="reset_feed_loading_status_text"></span></li>
+</ul>
+<script>
+jQuery('#reset-feed-loading-status').on('click', function(e) {
+  e.preventDefault();
+  jQuery('#reset_feed_loading_status_icon').prop('src', './images/loading.gif');
+  jQuery('#reset_feed_loading_status_text').html('&nbspEffacement en cours...');
+  jQuery.ajax({
+	  data: {'action': 'reset_feed_loading_status_ajax'},
+      success: function() {
+	    console.log('success');
+        jQuery('#reset_feed_loading_status_icon').prop('src', './images/yes.png');
+        jQuery('#reset_feed_loading_status_text').html('&nbspProcédure terminée !');
+      },
+	type: 'GET',
+	url: ajaxurl,
+	xhrFields: {
+	  onprogress: function(e) {
+	    console.log(e.target.responseText);
+      }
+	}
+  });
+});
+</script>
+<script>
+jQuery('#reset-xml-transform-status').on('click', function(e) {
+  e.preventDefault();
+  jQuery('#reset_xml_transform_status_icon').prop('src', './images/loading.gif');
+  jQuery('#reset_xml_transform_status_text').html('&nbspEffacement en cours...');
+  jQuery.ajax({
+	  data: {'action': 'reset_xml_transform_status_ajax'},
+      success: function() {
+	    console.log('success');
+        jQuery('#reset_xml_transform_status_icon').prop('src', './images/yes.png');
+        jQuery('#reset_xml_transform_status_text').html('&nbspProcédure terminée !');
+      },
+	type: 'GET',
+	url: ajaxurl,
+	xhrFields: {
+	  onprogress: function(e) {
+	    console.log(e.target.responseText);
+      }
+	}
+  });
+});
+</script>

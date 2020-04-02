@@ -1,0 +1,25 @@
+<ul>
+  <li><a href="" style="color: #a00" id="reset-plugin-data">Reset plugin data</a>&nbsp;<img id="reset_plugin_data_status_icon" src="" /><span id="reset_plugin_data_status_text"></span></li>
+</ul>
+<script>
+jQuery('#reset-plugin-data').on('click', function(e) {
+  e.preventDefault();
+  jQuery('#reset_plugin_data_status_icon').prop('src', './images/loading.gif');
+  jQuery('#reset_plugin_data_status_text').html('&nbspEffacement en cours...');
+  jQuery.ajax({
+	  data: {'action': 'reset_plugin_data_ajax'},
+      success: function() {
+	    console.log('success');
+        jQuery('#reset_plugin_data_status_icon').prop('src', './images/yes.png');
+        jQuery('#reset_plugin_data_status_text').html('&nbspProcédure terminée !');
+      },
+	type: 'GET',
+	url: ajaxurl,
+	xhrFields: {
+	  onprogress: function(e) {
+	    console.log(e.target.responseText);
+      }
+	}
+  });
+});
+</script>

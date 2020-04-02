@@ -1,0 +1,21 @@
+<strong># switch_time_extend</strong>
+<div class="postbox">
+    <label>
+    Allows the plugin to override max_execution_time&nbsp;
+    <input {{state}} {{status}} type="checkbox" name="hades_time_extend_status" id="hades-time-extend-status" />
+    </label>
+</div>
+<script>
+jQuery('#hades-time-extend-status').change(function(){
+    axios.post(
+        '/wp-admin/admin-ajax.php',
+	    Qs.stringify({action: 'switch_time_extend_status_ajax'})
+    )
+    .then(function (response){
+        console.log(response);
+    })
+    .catch(function (error){
+        console.log(error);
+    });
+});
+</script>

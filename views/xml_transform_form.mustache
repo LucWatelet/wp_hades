@@ -1,0 +1,80 @@
+<form id="xml_transform_form">
+  <h2>Transformation manuelle du cache XML en posts WordPress</h1>
+  <p>Ces fonctions permettent de recréer les posts Wordpress sur base des derniers flux téléchargés.</p>
+  <table class="form-table">
+    <tr>
+      <th scope="row">
+        <label for="all">Transformation complète</label>
+      </th>
+      <td>
+        <fieldset>
+          <input id="all" {{all_radio_state}} type='radio' name='type_synchro' value='tout' />
+          <label for="all">Cette tâche (re)-crée <strong> tous les posts </strong>(selon le nombre de post, cela peut prendre plusieurs dizaines de minutes)</label><br />
+        </fieldset>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <label for="diff">Transformation différentielle</label>
+      </th>
+      <td>
+        <fieldset>
+          <input id="diff" {{express_radio_state}} type='radio' name='type_synchro' value='express' />
+          <label for="diff">Cette tâche ne recrée que les posts dont la date de modification diffère de celle des offres du cache</label><br />
+        </fieldset>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <label for="custom">Transformation spécifique</label> 
+      </th>
+      <td>
+        <fieldset>
+          <input id="custom" {{custom_radio_state}} type='radio' name='type_synchro' value='specifique' />
+          <label for="custom">Cette tâche ne recrée que les posts dont vous indiquez les identifiants Hadès séparés par des virgules:</label>
+          <br /><input type='text' {{custom_ids_state}} required placeholder="123,456,789..." name='hades_id_synchro' value="{{custom_ids}}" />
+        </fieldset>
+      </td>
+    </tr>
+  </table>
+  <p class="submit">
+    <input id="xml_transform_submit" class="button button-primary" type="submit" value="Lancer la tâche sélectionnée" />
+      &nbsp;<img id="xml_transform_status_icon" src="" /><span id='xml_transform_status_text'></span>
+  </p>
+</form>
+<div id="xml_transform_output">
+  <pre>
+  </pre>
+</div>
+<script type="text/javascript">
+jQuery('input[type=radio]').change(function() {
+  if (jQuery('#custom').is(':checked')) {
+    jQuery('input[name="hades_id_synchro"]').prop('disabled', false);
+  } else {
+    jQuery('input[name="hades_id_synchro"]').prop('disabled', true);
+  }
+});
+jQuery("#xml_transform_form").bind('submit', function(e) { 
+  var type_synchro = jQuery("input[name='type_synchro']:checked").val();
+  var ids = jQuery("input[name='hades_id_synchro']").val();
+  jQuery('#xml_transform_status_icon').prop('src', './images/loading.gif');
+  jQuery('#xml_transform_status_text').html('&nbspTransformation en cours...');
+  jQuery.ajax({
+    type: 'POST',
+    url: ajaxurl,
+    data : {'action': 'xml_transform_ajax', 'type_synchro': type_synchro, 'hades_id_synchro': ids},
+    success: function() {
+      jQuery('#xml_transform_status_icon').prop('src', './images/yes.png');
+      jQuery('#xml_transform_status_text').html('&nbspTransformation terminée !');
+    },
+    xhrFields: {
+      onprogress: function(e) {
+        console.log(e.target.responseText)
+        //jQuery("#xml_transform_output pre").text(e.target.responseText);
+      }
+	  },
+  });
+  e.preventDefault();
+  return false;
+});
+</script> 

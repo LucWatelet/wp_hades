@@ -1,0 +1,91 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18-janv.-2018, 15:18:05
+    Author     : l.watelet
+*/
+
+#hades_ml_wrapper {
+  background-color: #f2f2f2;
+  border: 1px solid #666666 ;
+  padding: 0px;
+  min-height: 300px;
+}
+
+#hades_ml_mapfilter {
+	min-height: 300px;
+	padding: 0;
+}
+
+#hades_ml_list {
+  background-color: #f1ffff;
+  padding: 2px;
+  min-height: 300px;
+  z-index: 2;
+  border-left: 1px solid #9e9e9e;
+  overflow-y: scroll;
+}
+
+
+#hades_ml_map {
+  z-index: 0;
+  width: 100%;
+  margin: 0px;
+  min-height: 300px;
+}    
+
+#ml_tiroir {
+  position: absolute;
+  z-index: 1;
+  right: -4px;
+  top:0px;
+  height: 100%;
+  margin: 0px;
+  width: auto;
+  overflow-y: hidden;
+}
+
+#hades_ml_filter {
+  background-color: #f1ffff;
+  padding: 2px;
+  width: 0px;
+  opacity: 0.80;
+  min-height: 300px;
+  box-shadow: -5px 0px 15px black;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 1;
+  right: 0px;
+
+}
+
+#ml_flt_button {
+  background-color: rgba(0,0,0,0.75);
+  color: white;
+  padding: 12px;
+  height: auto;
+  width: 100px;
+  vertical-align: top;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  right:0px;
+  z-index: 1;
+}
+
+img.maplist_thumbnail {
+	width: 80px;
+	float: left;
+	height: 80px;
+	object-fit: contain;
+	margin-right: 10px;
+	object-position: center top;
+}
+
+div.maplist_offre_wrapper h4 {
+	display: inline;
+}

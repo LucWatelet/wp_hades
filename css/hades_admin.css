@@ -1,0 +1,155 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 10-mai-2016, 16:49:21
+    Author     : l.watelet
+*/
+
+
+.hades_xpath_expr {
+	width: calc(100% - 400px);
+	min-width: 300px;
+}
+
+.hades-index-name{
+	width:90%;
+}
+
+td.wphades_cat_niv1 {
+	padding-left: 30px;
+	font-size: 120%;
+	font-weight: bold;
+}
+
+td.wphades_cat_niv2 {
+	padding-left:60px;
+	font-weight: bold;
+
+}
+
+td.wphades_cat_niv3 {
+	padding-left:90px;
+}
+
+td.wphades_cat_niv4 {
+	padding-left:120px;
+	font-style: italic;
+}
+
+.wp-list-table .column-flux_id {
+	width: 50px;
+}
+
+.wp-list-table .column-url {
+	width: 60%;
+}
+
+.wp-list-table .column-index_id {
+	width: 50px;
+}
+
+.wp-list-table .column-name {
+	width: 150px;
+}
+
+.hades_page_hades_opt_offres .widefat td, .widefat th {
+	padding: 0px 5px;
+}
+
+.wp-list-table .column-off_id {
+	width: 78px;
+}
+.wp-list-table .column-nid {
+	width: 78px;
+}
+.wp-list-table .column-titre {
+	width: auto;
+}
+.wp-list-table .column-last_update {
+	width: 150px;
+}
+.wp-list-table .column-synopen {
+	width: 78px;
+	text-align: center;
+}
+
+
+
+
+table.table-cathdwp {
+
+}
+
+#cat_wp{
+	width:15%;
+	min-width: 200px;
+
+}
+#cat_hd{
+	width:auto;
+}
+
+
+td.cat_hades .cat-plus,td.cat_hades .cat-moins {
+	font-size: 16px;
+	line-height: 18px;
+}
+
+
+td.cat_hades .cat-plus:hover,td.cat_hades .cat-moins:hover {
+	cursor:pointer;
+	color:rgb(0,0,0);
+}
+
+
+td.cat_hades .cat-moins {
+	color: rgb(255, 119, 124);
+}
+
+
+td.cat_hades .cat-moins:hover {
+	cursor:pointer;
+	color:rgb(255, 0, 0);
+}
+
+
+td.cat_hades .cat_button {
+	font-size: 10px;
+	color : #72777c;
+	display: inline-block;
+	border: solid rgb(170,170,170) 1px;
+	padding: 0 2px;
+	line-height: 18px;
+}
+
+td.cat_hades select {
+	color : #72777c;
+	height:auto;
+	line-height:initial;
+	font-size:10px;
+}
+
+td.cat_hades .cat_button .dashicons{
+	vertical-align: middle
+
+}
+
+input.hades_xpath_input {
+	font-size: 9px;
+	width: 200px;
+	padding: 2px;
+	margin: 0px 0px 0px 3px;
+	vertical-align: middle;
+}
+
+.dashicons.cat-xpath {
+	font-size: 16px;
+  cursor: pointer;
+}
+
+.dashicons.cat-xpath:hover {
+color : #000;
+}

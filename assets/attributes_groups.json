@@ -1,0 +1,42 @@
+{
+    "lot_capacite": {
+        "id": "lot_capacite",
+        "label": "Capacités"
+    },
+    "lot_carto": {
+        "id": "lot_carto",
+        "label": "Carto"
+    },
+    "lot_contact": {
+        "id": "lot_contact",
+        "label": "Contacts"
+    },
+    "lot_cuisine": {
+        "id": "lot_cuisine",
+        "label": "Cuisine"
+    },
+    "lot_descript": {
+        "id": "lot_descript",
+        "label": "Description"
+    },
+    "lot_equip": {
+        "id": "lot_equip",
+        "label": "Équipements"
+    },
+    "lot_info": {
+        "id": "lot_info",
+        "label": "Information"
+    },
+    "lot_label": {
+        "id": "lot_label",
+        "label": "Labels"
+    },
+    "lot_restrict": {
+        "id": "lot_restrict",
+        "label": "Restrictions"
+    },
+    "lot_service": {
+        "id": "lot_service",
+        "label": "Services"
+    }
+}

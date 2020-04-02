@@ -1,0 +1,270 @@
+.hades ul {
+  list-style-type: none;
+  margin-bottom: 0px;
+  margin-left: 0px;
+}
+
+/* BEGIN: ul pour label CGT */
+.hades ul.lot_label li{margin-left: 3px; display:inline;}
+.hades ul.lot_label li:first-child{margin-left: 0px;}
+/* END: ul pour label CGT */
+
+/* BEGIN: ul DOT template */
+.hades ul.dot {display:block;}
+.hades ul.dot li{display:inline-block;}
+.hades ul.dot li{padding: 0px; margin: 0px;}
+.hades ul.dot li:after{content:'\0000a0\2022\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.dot li:last-child::after{content: "";}
+/* END: ul DOT template */
+
+/* BEGIN: hades-ul-* DOT */
+.hades ul.hades-ul-categorie{display:block;}
+.hades ul.hades-ul-categorie li{display:inline-block;}
+.hades ul.hades-ul-categorie li{padding: 0px; margin: 0px;}
+.hades ul.hades-ul-categorie li:after{content:'\0000a0\2022\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.hades-ul-categorie li:last-child::after{content: "";}
+
+.hades ul.hades-ul-charge{display:block;}
+.hades ul.hades-ul-charge li{display:inline-block;}
+.hades ul.hades-ul-charge li{padding: 0px; margin: 0px;}
+.hades ul.hades-ul-charge li:after{content:'\0000a0\2022\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.hades-ul-charge li:last-child::after{content: "";}
+
+.hades ul.hades-ul-equip{display:block;}
+.hades ul.hades-ul-equip li{display:inline-block;}
+.hades ul.hades-ul-equip li{padding: 0px; margin: 0px;}
+.hades ul.hades-ul-equip li:after{content:'\0000a0\2022\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.hades-ul-equip li:last-child::after{content: "";}
+
+.hades ul.hades-ul-service{display:block;}
+.hades ul.hades-ul-service li{display:inline-block;}
+.hades ul.hades-ul-service li{padding: 0px; margin: 0px;}
+.hades ul.hades-ul-service li:after{content:'\0000a0\2022\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.hades-ul-service li:last-child::after{content: "";}
+/* END: hades-ul-* DOT */
+
+/* BEGIN: ul COMMA template */
+.hades ul.comma {display:block; margin-left:0px;} /* margin-left calculée: 5px; */
+.hades ul.comma li{display:inline-block;}
+.hades ul.comma li{padding: 0px; margin: 0px;}
+.hades ul.comma li:after{content:',\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.comma li:last-child::after{content: ".";}
+/* END: ul COMMA template */
+
+/* BEGIN: hades-ul-* COMMA */
+.hades ul.hades-ul-ser-grp{display:block; margin-left:0px;} /* margin-left calculée: 5px; */
+.hades ul.hades-ul-ser-grp li{display:inline-block;}
+.hades ul.hades-ul-ser-grp li{padding: 0px; margin: 0px;}
+.hades ul.hades-ul-ser-grp li:after{content:',\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.hades-ul-ser-grp li:last-child::after{content: ".";}
+/* END: hades-ul-* COMMA */
+
+/* BEGIN: ul `attribute: VAL` template /
+.hades ul.hades-ul-equip li {display: block;}
+.hades ul.hades-ul-equip li:after{content:'';}
+.hades ul.hades-ul-equip li:last-child::after{content: '';}
+.hades-ul-equip .badge{
+  float: none;
+  color: black;
+  background-color: white;
+  border-radius: 0px;
+  line-height: 24px;
+  font-weight: normal;
+  padding: 0px;
+  padding-left: 0px;
+  margin: 0px;
+  font-size:16px;
+  border: none;
+  margin-top:-3px;
+}
+.hades-ul-equip .badge:before {
+  content:':\0000a';
+}
+/* END: ul `attribute: VAL` template */
+
+/* BEGIN: ul `attribute: VAL` template with DOT template *
+.hades ul.hades-ul-equip li {display: inline-block;}
+.hades ul.hades-ul-equip li:after{content:'\0000a0\2022\0000a0';}
+.hades ul.hades-ul-equip li:last-child::after{content: '';}
+.hades-ul-equip .badge{
+  float: none;
+  color: black;
+  background-color: white;
+  border-radius: 0px;
+  line-height: 24px;
+  font-weight: normal;
+  padding: 0px;
+  padding-left: 0px;
+  margin: 0px;
+  font-size:16px;
+  border: none;
+  margin-top:-3px;
+}
+.hades-ul-equip .badge:before {
+  content:':\0000a';
+}
+/* END: ul `attribute: VAL` template with DOT template */
+
+/* BEGIN: example how to switch a list from a dot format to a comma format /
+.hades ul.hades-ul-equip{display:block; margin-left:0px;}
+.hades ul.hades-ul-equip li{display:inline-block;}
+.hades ul.hades-ul-equip li{padding: 0px; margin: 0px;}
+.hades ul.hades-ul-equip li:after{content:',\0000a0'; margin-left: 0px ; margin-right: 0px;}
+.hades ul.hades-ul-equip li:last-child::after{content: "";}
+/* END: example how to switch a list from a dot format to a comma format */
+
+/* BEGIN: ul two column template with badge push to the right */
+.hades ul.hades-ul-capacite li .badge{
+  float: right;
+  margin-top:5px; /* fix the float pushing the block all the way up */
+}
+/* END: ul two column template */
+
+
+/* BEGIN:panel twentyfourteen /
+.hades>dl,
+.hades dl.hades-dl {
+  border-radius: 0px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+.hades>dl>dd>dl {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+.hades>dl>dd>dl>dd {
+  margin-bottom: 0px;
+}
+.hades>dl>dd>dl>dd>p {
+  margin-bottom: 0px;
+}
+.hades>dl>dt,
+.hades dl.hades-dl>dt {
+  background-color: #f5f5f5;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  padding-left: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.hades>dl>dd,
+.hades dl.hades-dl>dd{
+  padding: 5px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+}
+
+.hades dl.contact {
+  border-radius: 0px;
+}
+
+.hades dl.contact>dt {
+  background-color: #337ab7;
+  background-color: black;
+  color: white;
+}
+/* END:panel */
+
+/* BEGIN:panel à la bootstrap
+.hades>dl,
+.hades dl.hades-dl {
+  border: 1px solid #ddd; border-radius: 5px;
+}
+.hades dl.hades-dl {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.hades>dl>dt,
+.hades dl.hades-dl>dt {
+  background-color: #f5f5f5;
+  padding: 5px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 1px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.hades>dl>dd,
+.hades dl.hades-dl>dd {
+  padding: 5px;
+  padding-left: 10px;
+  margin-bottom: 0px;
+}
+.hades dl.contact {
+  border-radius: 5px;
+}
+.hades dl.contact>dt {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #337ab7;
+  color: white;
+}
+/* END:panel à la bootstrap */
+
+/* BEGIN:table */
+.hades dl>dd table {
+  border: none;
+}
+.hades dl>dd table td{
+  border: none;
+}
+/* END:table */
+
+/* BEGIN:well */
+.hades .well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.hades .well blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+/* END:well */
+
+/* BEGIN:carousel */
+.hades .carousel-caption {
+  padding-bottom: 0px;
+}
+/* END:carousel */
+
+/* BEGIN:visibility-glyph-ok */
+.visibility-glyphicon-ok {
+  visibility: hidden;
+  display: none;
+  margin: 0px;
+  padding: 0px;
+}
+/* END:visibility-glyph-ok */
+
+/* BEGIN:picto */
+.hades-picto{
+  max-height: 14px;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+/* END:picto */
+
+/* BEGIN: table tarif */
+.hades table.tarif tr>td:last-child {
+  vertical-align:bottom;
+  text-align: right;
+}
+/* END: table tarif */
+
+/* BEGIN: uppercase first letter */
+.hades .uppercase-firstl:first-child {
+  text-transform: uppercase;
+}
+/* END: uppercase first letter */
+
+nav.navigation.post-navigation {
+  visibility: hidden;
+  display: none;
+}

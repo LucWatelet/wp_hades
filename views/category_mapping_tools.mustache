@@ -1,0 +1,69 @@
+<form id="import_categories_form">
+  <h2>Importation des catégories et de leurs associations avec des catégories hadès</h1>
+  <table class="form-table">
+    <tr>
+      <th scope="row">
+        <label for="overwrite">Remplacer les catégories existantes</label>
+      </th>
+      <td>
+        <fieldset>
+          <input id="overwrite" {{overwrite_radio_state}} type='radio' name='type_import' value='overwrite' />
+          <label for="overwrite">Cette option écrase les catégories existantes avec les identifiant contenu dans le fichier de sauvegarde</label><br />
+        </fieldset>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <label for="append">Importer de nouvelles catégories</label>
+      </th>
+      <td>
+        <fieldset>
+          <input id="append" {{restore_radio_state}} type='radio' name='type_import' value='append' />
+          <label for="append">Les catégories et leur associations sont ajoutés aux catégories existantes</label><br />
+        </fieldset>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <label for="diff">Fichier de catégories issues d'un export.</label><br />
+      </th>
+      <td>
+        <fieldset>
+          <input id="file" type='file' name='import_file' value='' />
+        </fieldset>
+      </td>
+    </tr>
+  </table>
+  <p class="submit">
+    <input id="import_categories_submit" class="button button-primary" type="submit" value="Lancer la tâche sélectionnée" />&nbsp;<img id="import_categories_status_icon" src="" /><span id='import_categories_status_text'></span>
+  </p>
+</form>
+<div id="import_categories_output_pre">
+  <pre>
+  </pre>
+</div>
+<script type="text/javascript">
+jQuery("#import_categories_form").bind('submit', function(e) { 
+  var type_import = jQuery("input[name='type_import']:checked").val();
+  var import_file = jQuery("input[name='import_file']").val();
+  jQuery('#import_categories_status_icon').prop('src', './images/loading.gif');
+  jQuery('#import_categories_status_text').html('&nbspChargement en cours...');
+  jQuery.ajax({
+    type: 'POST',
+    url: ajaxurl,
+    data : {'action': 'import_categories_ajax', 'type_import': type_import, 'import_file': import_file},
+    success: function() {
+      jQuery('#import_categories_status_icon').prop('src', './images/yes.png');
+      jQuery('#import_categories_status_text').html('&nbspChargement terminé !');
+    },
+    xhrFields: {
+      onprogress: function(e) {
+        console.log(e.target.responseText)
+        jQuery("#import_categories_output pre").text(e.target.responseText);
+      }
+	  },
+  });
+  e.preventDefault();
+  return false;
+});
+</script> 

@@ -1,0 +1,360 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-août-2017, 9:50:48
+    Author     : l.watelet
+*/
+
+
+
+/*************
+* Listing
+**************/
+
+ .tjaff-title {
+	background-color: rgb(123,48,139) ;
+	font-size: 200%;
+	margin: 15px 0;
+	padding: 10px;
+  color :white;
+} 
+
+.type-hades_offre {
+/*	border: dotted grey 1px;*/
+	margin: 3px;
+  padding : 3px;
+}
+
+.hades-chapeau {
+/*	border: dotted grey 1px;*/
+	margin: 3px;
+  padding : 3px;
+}
+
+.hades-contact {
+	margin: 3px;
+	padding: 3px;
+	line-height: 140%;
+}
+
+.hades_offre{
+/*	border: dotted grey 1px;
+	margin: 3px;
+  padding : 3px;*/
+}
+
+.hades-annexes{
+/*	border: dotted grey 1px;*/
+	margin: 3px;
+  padding : 3px;  
+}
+
+.fiche-enfant-agenda{
+/*	border: dotted grey 1px;*/
+	margin: 3px;
+  padding : 3px;  
+}
+
+.attachment-entry-thumb.size-entry-thumb.wp-post-image {
+	max-height: 200px;
+}
+
+p.hades_desc_general {
+
+    white-space: pre-wrap;
+    font-weight: bold;
+
+}
+
+p.hades_desc_gn_comp {
+	white-space: pre-wrap;
+	font-size: 90%;
+}
+
+.hades-sub-title {
+ color:#fff;
+	background-color: #333;
+  padding:3px 3px 3px 20px;
+
+}
+
+.news_dates {
+	position: relative;
+	top: -10px;
+	left: -10px;
+	margin-bottom: -30px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-image: url("/wp-content/themes/business-a-pro-child/images/fondscs.png");
+}
+
+div.hades-date-loc .news_dates {
+	top: 0px;
+	left: 0px;
+	margin-bottom: 0px;
+	position: static;
+	display: inline-block;
+	padding-right: 10px;
+  vertical-align: middle;
+
+}
+
+div.hades-date-loc .hades-localite_commune {
+	color: rgb(189, 213, 49);
+	font-size: 200%;
+	margin: 0px;
+	padding: 3px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+
+.news_dates.double {
+	background-image: url("/wp-content/themes/business-a-pro-child/images/fonddbl2.png");
+
+
+}
+
+.news_date_deb, .news_date_fin {
+	color: white;
+	padding: 9px 7px 7px 9px;
+	text-align: center;
+	line-height: 124%;
+	z-index: 100;
+	display: inline-block;
+  width:45px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.news_date_fin {
+	padding-left: 0px;
+  position:relative;
+  
+}
+
+
+article.hades_offre {
+	width: 360px;
+	float: left;
+	height: 500px;
+	overflow-y: hidden;
+}
+
+article.hades_offre .entry-title, article.hades_offre .entry-title a {
+	font-size: 120%;
+  line-height: 120%;
+
+}
+
+article.hades_offre .hades-chapeau {
+	height: 100px;
+	overflow: hidden;
+	line-height: 171%;
+}
+
+
+.hades_offre .rdn-featured-image {
+	height: 250px;
+}
+
+/*.hades_offre .rdn-featured-image img {
+	object-fit: cover;
+  height: 250px;
+  width : 100%;  
+}*/
+
+.hades_offre .rdn-featured-image img {
+	object-fit: cover;
+  object-position: center 33%;
+	height: 250px;
+	width: 100%;
+	filter: grayscale(90%);
+}
+
+/*.hades_offre .rdn-featured-image img:hover {
+	object-position: center 100%;
+  transition: object-position 10s;
+}*/
+
+
+/*.entry-content .hades_offre {
+	max-height: 150px;
+	overflow: hidden;
+	font-size: 100%;
+	line-height: 120%;
+}*/
+
+.single_hades_offre_content {
+  max-height: none;
+	font-size: 100%;
+	line-height: 120%;  
+  overflow: visible;
+}
+
+.jour {
+	font-size: 160%;
+}
+.mois{
+  
+}
+
+/*div.row .map_search_critere.widget.widget-area {
+	width: auto;
+	float: left;
+	max-width: 205px;
+	padding: 15px;
+}*/
+
+
+
+
+/*************
+* Fiche
+**************/
+
+.hades-event_date {
+	padding: 3px;
+	background-color: rgb(189, 213, 49);
+	color: white;
+	font-size: 150%;
+	font-weight: bold;
+}
+.hades-localite_commune {
+	color: rgb(189, 213, 49);
+	font-size: 150%;
+	margin: 0px;
+	padding: 3px;
+}
+
+.hades-date-loc {
+	margin: 8px 0px;
+	border: 1px solid rgb(189, 213, 49);
+  border-radius: 30px;
+}
+
+.hades_infos {
+  font-weight: bold;
+}
+
+article.single_hades_offre .entry-title{
+  font-size:150%;
+}
+
+article.single_hades_offre header.entry-header{
+  margin:20px 0px;
+}
+
+.offre-labels {
+	background-color: #bdd531;
+}
+
+.attribut.chk {
+	display: inline-block;
+	padding: 0px 15px;
+}
+.attribut.npic {
+	display: inline-block;
+	font-family: 'Roboto Slab', sans-serif;
+	font-size: 90%;
+}
+img.picto {
+	max-height: 32px;
+	margin: 3px;
+}
+
+.hades_lot {
+	margin: 15px 7px;
+}
+
+.lot-titre, .lib_des {
+	font-variant: small-caps;
+	color: #bdd531;
+	border-bottom: solid 1px #bdd531;
+}
+
+.descript.gn_comp {
+	color: #777;
+	font-size: 90%;
+	line-height: 175%;
+	margin: 30px 0;
+}
+
+
+
+.tarif_lib, .tarif_prix {
+	display: inline-block;
+}
+
+.groupeannuel {
+	padding-left: 15px;
+}
+
+.horaire-texte {
+	max-height: 150px;
+	overflow: auto;
+	/*white-space: pre-wrap;*/
+}
+
+.hades_content_libelle {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.fiche-enfant-h {
+	margin-top: 64px;
+  overflow: auto;
+}
+
+.hades-sub-agenda .news_dates {
+	position: unset;
+	display: inline-block;
+	top: unset;
+	left: unset;
+	vertical-align: middle;
+	margin: unset;
+	padding:0 7px 0 0;
+}
+
+.fiche-enfant-h .attachment-post-thumbnail {
+	max-width: 33%;
+	float: left;
+	margin: 10px;
+}
+
+.photo {
+	max-height: 250px;
+}
+
+.offre-medias {
+	overflow-x: auto;
+	white-space: nowrap;
+	overflow-y: hidden;
+}
+
+.fiche_media {
+	display: inline-block;
+}
+
+.offre-medias .copyright {
+	font-size: 50%;
+	line-height: normal;
+}
+
+#searchloc_list {
+	box-shadow: 6px 6px 6px rgba(64,64,64,0.5);
+	border: solid 1px #aaa;
+	position: absolute;
+	z-index: 2;
+	background-color: #FFF;
+	width: 90%;
+}
+.searchloc_item {
+	padding: 3px;
+}
+.searchloc_item:hover {
+	background-color: #DDDDDD;
+}
