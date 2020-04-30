@@ -179,7 +179,8 @@ class Hades_Converter
             'lot_mice' => 'mice',
             'lot_restrict' => 'constraints',
             'lot_ser_grp' => 'services_grp',
-            'lot_service' => 'services'
+            'lot_service' => 'services',
+            'lot_tarif'=>'tarif'
         );
         foreach ($lots as $lot_name => $cf_name) {
             $cf = Atlb\Hades\get_generic_custom_field_from_xml_offer($this->osx, $lot_name);

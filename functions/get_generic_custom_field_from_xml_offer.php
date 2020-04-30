@@ -6,9 +6,19 @@ function get_generic_custom_field_from_xml_offer($xml_offer, $lot_name)
     $attributes = $xml_offer->xpath('attributs/attribut[@lot="' . $lot_name . '"]');
     $descriptions = $xml_offer->xpath('descriptions/description[@lot="' . $lot_name . '"]');
     $openings = array();
+    $tarifs = array();
+
     if ($lot_name === 'lot_horaire') {
         $openings = $xml_offer->xpath('horaires/horaire');
     }
+  
+    if ($lot_name === 'lot_tarif') {
+        $tarifs = $xml_offer->xpath('tarifs/tarif');
+    }
+
+
+
+
     if (count($attributes) === 0 && count($descriptions) === 0 && count($openings) === 0) {
         return false;
     }
@@ -68,5 +78,28 @@ function get_generic_custom_field_from_xml_offer($xml_offer, $lot_name)
         }
     }
 
+    if (count($tarifs) > 0) {
+        foreach ($tarifs as $tarif) {
+            $id = (string) $tarif->xpath('lib[not(@*)]')[0];
+            $custom_field['tarifs'][$id]['id'] = $id; // FIXME: should be removed ?
+            $custom_field['tarifs'][$id]['sort_key'] = (int) $tarif['tri']; // FIXME: is there always a sort key ?
+            foreach ($tarif->xpath('lib[@lg]') as $label) {
+                $custom_field['tarifs'][$id]['labels'][(string) $label['lg']] = (string) $label[0];
+            }
+
+            $custom_field['tarifs'][$id]['date_deb']=(string)$tarif->date_deb;
+            $custom_field['tarifs'][$id]['date_fin']=(string)$tarif->date_fin;
+            $custom_field['tarifs'][$id]['min']=(string)$tarif->min;
+            $custom_field['tarifs'][$id]['max']=(string)$tarif->max;
+
+            foreach ($tarif->xpath('remarque[@lg]') as $content) {
+                $text = (string) $content[0];
+                $text = str_replace(array("\r\n", "\r", "\n"), '<br>', $text);
+                $text = str_replace('"', '&quot;', $text); // FIXME: use html_entities instead ?
+                //$text = htmlentities($text); // FIXME: use html_entities instead ?
+                $custom_field['tarifs'][$id]['rem'][(string) $content['lg']] = $text; // FUCK YOU WP https://wordpress.stackexchange.com/questions/53336/wordpress-is-stripping-escape-backslashes-from-json-strings-in-post-meta
+            }
+        }
+    }
     return json_encode($custom_field, JSON_UNESCAPED_UNICODE);
 }
