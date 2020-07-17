@@ -15,7 +15,9 @@ function get_contact_custom_field_from_xml_offer($xml_offer)
         if ((string) $public_contact->societe[0]) {
             $contact['public_contact']['company'] = addslashes((string) $public_contact->societe[0]);
         }
-        $contact['public_contact'] = array_filter($contact['public_contact'], 'strlen');
+        if(is_array(contact['public_contact'])){
+            $contact['public_contact'] = array_filter($contact['public_contact'], 'strlen');
+        }    
         $communications = $public_contact->communications->communication;
         if ($communications) {
             $contact['public_contact']['channels'] = array();
