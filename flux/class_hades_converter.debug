@@ -868,16 +868,13 @@ class Hades_Converter
         // $image_url=str_replace(array("http://www.ftlb.be/","https://www.ftlb.be/"), "ftp://172.31.1.21/pools/A/A0/FTLB/Share FTLB/", $image_url);
         // $image_url=str_replace("http://www.ftlb.be/", $_GET["urlimg"], $image_url);
 
-        echo " [url image]=[" . $image_url."]";
-
         $post_thumbnail_id = get_post_thumbnail_id($post_id);
 
         // Si l'image et l'attachement existe on renvoie l'attachement Id
         if ($post_thumbnail_id > 0) {
             $attached = get_attached_file($post_thumbnail_id);
-            $imageattached=substr($attached, strrpos($attached, '/') + 1);
-            if (  $attached && $imageattached==$image_name   ) {
-                echo " (" . $image_name . "->Existe & attachée : " . $imageattached . " ) ";
+            if ($attached) {
+                echo " (" . $image_name . "->Existe) ";
                 return $post_thumbnail_id;
             }
         }
@@ -887,11 +884,15 @@ class Hades_Converter
             if (!$post_thumbnail_id) {
                 $post_thumbnail_id = $this->get_image_id_from_filename($image_name);
             }
-            echo " (" . $image_name . "->Existe dans ".$upload_dir['path']." ) ";
+            echo " (" . $image_name . "->Existe) ";
             return $post_thumbnail_id;
         }
-        echo " (" . $image_name;
-        $image_url = str_replace('https:', 'http:', $image_url);
+        //echo " (" . $image_name;
+        $image_url = str_replace('http:', 'https:', $image_url);
+        echo " (" . $image_url;
+        $file_headers = @get_headers($image_url);
+        echo " : header : [". print_r($file_headers,1)."]";
+        
         $image_data =  wp_remote_retrieve_body(wp_remote_get($image_url));
 
         // $unique_file_name = wp_unique_filename( $upload_dir['path'], $image_name );

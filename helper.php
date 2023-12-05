@@ -229,10 +229,11 @@ function date_vers_texte( $d, $f, $lg = "" )
     {
     if( $lg == "" )
         $lg = 'fr';
+	$text="";
     $x = strtotime( $d );
     $y = strtotime( $f );
     $tmp_config = setlocale( LC_TIME, "0" );
-    setlocale( LC_TIME, $GLOBALS['lgs'][$lg] );
+    setlocale( LC_TIME, @$GLOBALS['lgs'][$lg] );
 
     switch( true )
         {

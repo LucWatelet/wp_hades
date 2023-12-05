@@ -337,7 +337,7 @@ class Hades_Offre
         
         $where .= $wpdb->prepare( ' AND '.$wpdb->prefix.'posts.ID ' .
                 'IN ( SELECT s.ID FROM ' . HADESDBPFX . 'post_spatial s 
-             WHERE  MBRContains( GeomFromText("'.$polygon.'") , s.coord ) )'  , "" );
+             WHERE  MBRContains( ST_GeomFromText("'.$polygon.'") , s.coord ) )'  , "" );
         
         
         return $where;
@@ -595,7 +595,7 @@ class Hades_Offre
         else
             {
             $cat_slug = $wp_query->get( 'category_name' );
-            $cat_id = get_category_by_slug( $cat_slug )->term_id;
+            $cat_id = @get_category_by_slug( $cat_slug )->term_id;
             }
 
         if( !$cat_id )

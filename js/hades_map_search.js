@@ -56,10 +56,10 @@ function hades_map_set_markers(response) {
 
 function icon(cat){
   if(!hades_map_icons[cat] ){
-    //hades_map_icons[cat]= new L.Icon({iconUrl: 'wp-content/uploads/categories/markers/'+cat+'.png',
+    hades_map_icons[cat]= new L.Icon({iconUrl: '../wp-content/uploads/categories/markers/'+cat+'.svg',
     //hades_map_icons[cat]= new L.Icon({iconUrl: 'wp-content/themes/twentyseventeen-child/assets/images/categories/markers/'+cat+'.png',
-    hades_map_icons[cat]= new L.Icon({iconUrl: 'https://pivotweb.tourismewallonie.be/PivotWeb-3.1/img/urn:fld:catering:bbq;h=48',
-        iconSize:     [48, 48],
+//    hades_map_icons[cat]= new L.Icon({iconUrl: 'https://pivotweb.tourismewallonie.be/PivotWeb-3.1/img/urn:fld:catering:bbq;h=48',
+        iconSize:     [60, 60],
         iconAnchor:   [32, 63]});
     console.log("cree "+cat); 
   }

@@ -206,32 +206,57 @@ class Hades_Flux
         ob_flush();
         flush();
 
-        $handlein = fopen( $url_flux, 'rb', false, $this->context );
-        if( !$handlein )
-            {
-            echo "<div class='error notice'><p>";
-            trigger_error( "Impossible d'ouvrir le flux depuis :" . $url_flux, E_USER_ERROR );
-            echo "</p></div>";
-            }
-        $handleout = fopen( $this->tempdir . "Tmpfile" . $this->flux_id . $tmp_file_ext, 'wb' );
-        if( !$handleout )
-            {
-            echo "<div class='error notice'><p>";
-            trigger_error( "Impossible d'ouvrir :" . $this->tempdir . "Tmpfile" . $this->flux_id . $tmp_file_ext, E_USER_ERROR );
-            echo "</p></div>";
-            }
+		if(function_exists("curl_init")){ 
+			//API KEY AND PASSWORD
+			$headers = array('Authorization: Basic ' . base64_encode( HADES_FEED_USERNAME . ":" . HADES_FEED_PASSWORD ), 'Content-Type: application/xml');
+			//FILE NAME
+			$filename = 'Tmpfile' . $this->flux_id . '.xml';
+			//DOWNLOAD PATH
+			$path = $this->tempdir.$filename;
+			//FOLDER PATH
+			$fp = fopen($path, 'w');
+			//SETTING UP CURL REQUEST
+			$ch = curl_init(str_replace (' ','%20',$url_flux));
+			curl_setopt($ch, CURLOPT_FILE, $fp);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			$data = curl_exec($ch);
+			//CONNECTION CLOSE
+			curl_close($ch);
+			
+			fclose($fp);
+			$this->tmpfile = $this->tempdir . 'Tmpfile' . $this->flux_id . '.xml';
+			$this->nboctets = filesize ($this->tmpfile );
+			echo "Transfert de données en CURL cours ... patientez.\r\n";
+		}
+		else
+		{
+			$handlein = fopen( $url_flux, 'rb', false, $this->context );
+			if( !$handlein )
+				{
+				echo "<div class='error notice'><p>";
+				trigger_error( "Impossible d'ouvrir le flux depuis :" . $url_flux, E_USER_ERROR );
+				echo "</p></div>";
+				}
+			$handleout = fopen( $this->tempdir . "Tmpfile" . $this->flux_id . $tmp_file_ext, 'wb' );
+			if( !$handleout )
+				{
+				echo "<div class='error notice'><p>";
+				trigger_error( "Impossible d'ouvrir :" . $this->tempdir . "Tmpfile" . $this->flux_id . $tmp_file_ext, E_USER_ERROR );
+				echo "</p></div>";
+				}
 
-        echo "Transfert de données en cours ... patientez.\r\n";
+			echo "Transfert de données en cours ... patientez.\r\n";
 
-        ob_flush();
-        flush();
+			ob_flush();
+			flush();
 
-        stream_set_timeout( $handlein, 240 );
-        stream_set_timeout( $handleout, 240 );
-        $this->nboctets = stream_copy_to_stream( $handlein, $handleout );
-        fclose( $handlein );
-        fclose( $handleout );
-
+			stream_set_timeout( $handlein, 240 );
+			stream_set_timeout( $handleout, 240 );
+			$this->nboctets = stream_copy_to_stream( $handlein, $handleout );
+			fclose( $handlein );
+			fclose( $handleout );
+		}
+		
         hadeslog( 'log', "Fichier chargé :" . $this->tempdir . 'Tmpfile' . $this->flux_id . $tmp_file_ext . " : " . intval( $this->nboctets / 1000 . "Ko" ) );
 
         /* Décompression du fichier si le flux est compressé */
@@ -300,7 +325,7 @@ class Hades_Flux
             }
         //On ouvre le fichier
         $reader = new XMLReader();
-        $XMLouvert = $reader->open( $this->tmpfile );
+        $XMLouvert = $reader->open( $this->tmpfile, null , LIBXML_NOWARNING );
 
         //On verifie que le fichier est ouvert
         if( !$XMLouvert )
@@ -354,18 +379,18 @@ class Hades_Flux
                 echo $off_current_id . ", ";
 
 
-                $resenfants = $offre_xml->enfants[0]->offre;
+                $resenfants = @$offre_xml->enfants[0]->offre;
 
-                if( $resenfants )
+                if( is_array(@$resenfants) )
                     {
                     foreach( $resenfants as $value )
                         {
                         $liaisons[] = "(" . $off_current_id . "," . $value["id"] . ",'" . $value["typ"] . "','" . $value["rel"] . "')";
                         }
                     }
-                $resparents = $offre_xml->parents[0]->offre;
+                $resparents = @$offre_xml->parents[0]->offre;
 
-                if( $resparents )
+                if( is_array(@$resparents) )
                     {
 
                     foreach( $resparents as $value )
@@ -373,9 +398,9 @@ class Hades_Flux
                         $liaisons[] = "(" . $off_current_id . "," . $value["id"] . ",'" . $value["typ"] . "','" . $value["rel"] . "')";
                         }
                     }
-                $rescategories = $offre_xml->categories[0]->categorie;
+                $rescategories = @$offre_xml->categories[0]->categorie;
 
-                if( $rescategories )
+                if( is_array(@$rescategories) )
                     {
 
                     foreach( $rescategories as $value )
@@ -383,9 +408,9 @@ class Hades_Flux
                         $categories[] = "(" . $off_current_id . ",'" . $value["id"] . "')";
                         }
                     }
-                $reslocalisation = $offre_xml->localisation[0]->localite;
+                $reslocalisation = @$offre_xml->localisation[0]->localite;
 
-                if( $reslocalisation )
+                if( is_array(@$reslocalisation) )
                     {
 
                     foreach( $reslocalisation as $value )
@@ -395,10 +420,10 @@ class Hades_Flux
                         }
                     }
 
-                $resselection = $offre_xml->selections[0]->selection;
+                $resselection = @$offre_xml->selections[0]->selection;
 
 
-                if( $resselection )
+                if( is_array(@$resselection) )
                     {
                     foreach( $resselection as $value )
                         {
@@ -408,9 +433,9 @@ class Hades_Flux
 
 
 
-                $reshoraires = $offre_xml->horaires[0]->horaire;
+                $reshoraires = @$offre_xml->horaires[0]->horaire;
 
-                if( $reshoraires )
+                if( is_array(@$reshoraires) )
                     {
 
                     foreach( $reshoraires as $horvalue )
@@ -436,7 +461,7 @@ class Hades_Flux
 
 
 
-        if( count( $tab_off_id ) > 0 )
+        if(is_array(@$tab_off_id) && count( $tab_off_id ) > 0 )
             {
             $strlist_off_id = implode( ",", $tab_off_id );
             $wpdb->get_results( "DELETE FROM `" . HADESDBPFX . "offre_liee` WHERE fk_off_id IN(" . $strlist_off_id . ") ;" );
@@ -445,13 +470,13 @@ class Hades_Flux
             $wpdb->get_results( "DELETE FROM `" . HADESDBPFX . "offre_localites` WHERE fk_off_id IN(" . $strlist_off_id . ") ;" );
             }
 
-        if( count( $liaisons ) > 0 )
+        if( is_array(@$liaisons) &&  count( $liaisons ) > 0 )
             {
             $wpdb->get_results( "REPLACE INTO `" . HADESDBPFX . "offre_liee` (`fk_off_id`,`sub_off_id`,`typ`,`rel`) "
                     . " VALUES " . implode( ",", $liaisons ) . " ;" );
             }
 
-        if( count( $localites ) > 0 )
+        if( is_array(@$localites) &&  count( $localites ) > 0 )
             {
             $wpdb->get_results( "REPLACE INTO `" . HADESDBPFX . "offre_localites` (`fk_off_id`,`fk_loc_id`,`fk_com_id`,`fk_reg_id`) "
                     . " VALUES " . implode( ",", $localites ) . " ;" );
@@ -464,19 +489,19 @@ class Hades_Flux
                 }
             }
 
-        if( count( $categories ) > 0 )
+        if( is_array(@$categories) &&  count( $categories ) > 0 )
             {
             $wpdb->get_results( "REPLACE INTO `" . HADESDBPFX . "offre_categories` (`fk_off_id`,`fk_cat_id`) "
                     . " VALUES " . implode( ",", $categories ) . " ;" );
             }
 
-        if( count( $selections ) > 0 )
+        if( is_array(@$selections) &&  count( $selections ) > 0 )
             {
             $wpdb->get_results( "INSERT IGNORE INTO `" . HADESDBPFX . "selections` (`sel_id`,`classe`,`libelle`) "
                     . " VALUES " . implode( ",", $selections ) . " ;" );
             }
 
-        if( count( $dateheures ) > 0 )
+        if( is_array(@$dateheures) &&  count( $dateheures ) > 0 )
             {
             $wpdb->get_results( "REPLACE INTO `" . HADESDBPFX . "offre_dateheure` (`fk_off_id`,`date_deb`,`date_fin`,`jours`) "
                     . " VALUES " . implode( ",", $dateheures ) . " ;" );
@@ -490,8 +515,10 @@ class Hades_Flux
 
     public function set_in_db_suppr()
         {
-        hades_set_time( 300 );
+        hades_set_time( 900 );
         global $wpdb;
+		$query_head="";
+		$cpt_list=1;
 
         //On verifie que le fichier est défini
         if( !$this->tmpfile )
@@ -557,10 +584,10 @@ class Hades_Flux
 				$query_list.="(" . $off_current_id . ", \"" . addslashes( $reader->getAttribute( "suppr_date" ) ) . "\"),";
 
 				//Exécutionde la requête toutes les 10000 valeurs
-				if($cpt_list++ % 10000 == 0){
+				if($cpt_list++ % 1000 == 0){
 					$wpdb->get_results($query_head.substr( $query_list, 0, -1 ).";" );
 					$query_list="";
-					echo " - <b>Query sent</b> - ";
+					echo " - <b>Query sent (1000 ids)</b> - ";
                     }
                   //$wpdb->get_results( "INSERT IGNORE INTO `" . HADESDBPFX . "offre_suppr` (`off_id`,`suppr_date`) 
                   //VALUES(" . $off_current_id . ", \"" . addslashes( $reader->getAttribute( "suppr_date" ) ) . "\");" );
@@ -575,8 +602,9 @@ class Hades_Flux
 
 			//Exécution de la dernière requête ( moins de 10000 valeurs restantes)
 			$wpdb->get_results($query_head.substr( $query_list, 0, -1 ).";" );
-			echo " - <b>Query sent</b> - ";
-
+			echo " - <b>Query sent  (last ids)</b> - ";
+			ob_flush();
+            flush();
             }
 
 
@@ -593,6 +621,8 @@ class Hades_Flux
 
         //suppression des POSTS signalés par H2O  
         echo "<br/>Suppression des Posts (via Db): ";
+		ob_flush();
+        flush();
 
         $result_suppr = $wpdb->get_results(
                 "SELECT p.post_id "
@@ -602,8 +632,9 @@ class Hades_Flux
         foreach( $result_suppr as $post_id )
             {
             hades_set_time( 15 );
-            wp_delete_post( $post_id->post_id, $force_delete = false );
+            wp_delete_post( $post_id->post_id, $force_delete = true );
             echo $post_id->post_id . ", ";
+			flush();
             }
 
         hadeslog( 'log', "Nombre d'offres XML supprimées dans offres_xml : " . $this->off_xml_count . " ." );
@@ -671,7 +702,7 @@ class Hades_Flux
         global $hades_syn_text_log;
 
 
-        ob_flush();
+        //ob_flush();
         flush();
         if( $reset )
             {
@@ -704,7 +735,7 @@ class Hades_Flux
                 }
             }
 
-        ob_flush();
+        //ob_flush();
         flush();
 
         $fluxes = $this->get_all_flux();

@@ -17,29 +17,31 @@ function hades_map_search( $atts )
             <div class='row'>
         <div class='col-md-3 map_search_critere widget widget-area'>
         
-          <form id='hades_map_search_form' >
+          <form id='hades_map_search_form'>
             <h3 class='widget-title' >Rechercher </h3>
-                <ul>";
+                <div class='grid-100 tablet-grid-100 mobile-grid-100 grid-parent'>";
         foreach( get_categories( $arg ) as $cat_obj )
             {
             //style='max-width:500px ;width:100%;height: 600px;float: left;'
             $r.= " 
-                    <li><input type= 'checkbox' name='category_name[" . $cat_obj->cat_ID . "]' value='" . $cat_obj->slug . "' /> 
+                    <div class='bloc grid-33 tablet-grid-50 mobile-grid-100'><input type= 'checkbox' name='category_name[" . $cat_obj->cat_ID . "]' value='" . $cat_obj->slug . "' /> 
                         " . $cat_obj->cat_name . "
                         (" . $cat_obj->count . ")
-                    </li>";
+                    </div>";
             }
-        $r.= "</ul>";
+        $r.= "</div>";
 
 
 
         $r.="<input type='hidden' name='action' value='get_map_hades' /> 
             </form>
-        <button id='clickmap' value='click' >Afficher</button>
-        <button id='clickexcell' value='click' >Télécharger</button>
+			<div class='boutons aligncenter tablet-aligncenter mobile-aligncenter'>
+				<button id='clickmap' value='click' >Afficher</button>
+				<button id='clickexcell' value='click' >Télécharger</button>
+			</div>
         </div>
 
-       <div id='hades_map_search_map' class='col-md-9' style='height:600px' ></div>
+       <div id='hades_map_search_map' class='col-md-9' style='height:750px' ></div>
         </div>
         <script >
             jQuery('#clickmap').click(send_map_ajax);

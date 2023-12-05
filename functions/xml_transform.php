@@ -3,6 +3,7 @@ namespace Atlb\Hades;
 
 function xml_transform($what = '')
 {
+    ini_set('memory_limit','512M');
     $warning_message = false;
     $xml_transform_status = json_decode(get_option($option = 'hades_xml_transform_status'), true);
     $xml_transform_status['status'] = 'running';
@@ -73,6 +74,7 @@ function xml_transform($what = '')
             ob_flush();
             flush();
         }
+
         /* GEOLOCALISATION DES LOCALITES */
         foreach ($converter->geo_loc as $key => $gl) {
             $obj_term=get_term_by('name', $key, HADES_TAXO_LOC);
@@ -86,15 +88,31 @@ function xml_transform($what = '')
             INSERT IGNORE INTO " . HADESDBPFX . "post_spatial
                 SELECT
                     x.post_id as ID,
-                    PointFromText(CONCAT('POINT(', (x.meta_value-5)*111.319, ' ', (y.meta_value-49.50)*172.190, ')')) AS coord
+                    ST_PointFromText(CONCAT('POINT(', (x.meta_value-5)*111.319, ' ', (y.meta_value-49.50)*172.190, ')')) AS coord
                 FROM ".$wpdb->prefix."postmeta x,
                     ".$wpdb->prefix."postmeta y
                 WHERE x.post_id = y.post_id
                 AND x.meta_key = 'gps_x'
                 AND y.meta_key = 'gps_y';");
+        
+        unset($results); 
+
+        /* SUPPRESSION DES OFFRES HADES EN CORBEILLE */
+        $results = $wpdb->query('
+        DELETE p ,m, r
+        FROM `'.$wpdb->prefix.'posts` p   
+        LEFT JOIN `'.$wpdb->prefix.'postmeta` m ON p.`ID`=m.post_id
+        LEFT JOIN `'.$wpdb->prefix.'term_relationships` r ON p.`ID`=r.object_id
+        WHERE p.`post_status`="trash" AND p.post_type="hades_offre" ;');
+        echo "<hr/><p>Corbeille vidée : ".print_r($results,1)." lignes affectées</p><hr/>";
+    
+        unset($results); 
     
         echo "<hr/><p>Synchronisation terminée.</p><hr/>";
     }
+
+
+
     $xml_transform_status['status'] = 'idle';
     $xml_transform_status['last_finished'] = date('c');
     update_option('hades_xml_transform_status', json_encode($xml_transform_status));
